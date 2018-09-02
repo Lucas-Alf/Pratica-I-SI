@@ -7,7 +7,6 @@ import View.brwCarro;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,7 +45,8 @@ public class CarroRepository {
     }
 
     public void atualizaStore(String descricao) {
-        CarroTableModel model = new CarroTableModel();
+        CarroTableModel model = (CarroTableModel) brwCarro.jTableCarro.getModel();
+        model.clear();
         model.addList(new CarroRepository().lista(descricao));
         brwCarro.jTableCarro.setModel(model);
     }
