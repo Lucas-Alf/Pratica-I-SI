@@ -17,7 +17,6 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author lukin
  */
-
 public class brwCarro extends javax.swing.JFrame {
 
     /**
@@ -69,16 +68,31 @@ public class brwCarro extends javax.swing.JFrame {
             }
         });
 
-        TableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
-
-            SimpleDateFormat f = new SimpleDateFormat("dd/MM/YYYY");
-
+        TableCellRenderer RendererData = new DefaultTableCellRenderer() {
+            SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
             public Component getTableCellRendererComponent(JTable table,
                 Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {
                 if(value != null) {
                     Date data = new Date(value.toString().replaceAll("-", "/"));
-                    value = data.toLocaleString().substring(0,10);
+                    value = f.format(data);
+                } else {
+                    value = "";
+                }
+                return super.getTableCellRendererComponent(table, value, isSelected,
+                    hasFocus, row, column);
+            }
+        };
+        TableCellRenderer RendererStatus = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table,
+                Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
+                if(value != null) {
+                    if(Integer.parseInt(value.toString()) == 0){
+                        value = "Disponivel";
+                    } else {
+                        value = "Locado";
+                    }
                 } else {
                     value = "";
                 }
@@ -88,12 +102,17 @@ public class brwCarro extends javax.swing.JFrame {
         };
         CarroTableModel model = new CarroTableModel();
         jTableCarro.setModel(model);
-        jTableCarro.getColumnModel().getColumn(8).setCellRenderer(tableCellRenderer);
-        jTableCarro.getColumnModel().getColumn(9).setCellRenderer(tableCellRenderer);
-        //jTableCarro.getColumnModel().getColumn(6).setCellRenderer(tableCellRenderer);
+        jTableCarro.getColumnModel().getColumn(6).setCellRenderer(RendererStatus);
+        jTableCarro.getColumnModel().getColumn(8).setCellRenderer(RendererData);
+        jTableCarro.getColumnModel().getColumn(9).setCellRenderer(RendererData);
         model.addList(new CarroRepository().lista(jTextFieldFiltroNomeCarro.getText()));
         jScrollPane1.setViewportView(jTableCarro);
 
+        jTextFieldFiltroNomeCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldFiltroNomeCarroActionPerformed(evt);
+            }
+        });
         jTextFieldFiltroNomeCarro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldFiltroNomeCarroKeyPressed(evt);
@@ -140,9 +159,7 @@ public class brwCarro extends javax.swing.JFrame {
 
     private void jTextFieldFiltroNomeCarroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFiltroNomeCarroKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            CarroTableModel model = new CarroTableModel();
-            model.addList(new CarroRepository().lista(jTextFieldFiltroNomeCarro.getText()));
-            jTableCarro.setModel(model);
+            new CarroRepository().atualizaStore(jTextFieldFiltroNomeCarro.getText());
         }
     }//GEN-LAST:event_jTextFieldFiltroNomeCarroKeyPressed
 
@@ -182,17 +199,22 @@ public class brwCarro extends javax.swing.JFrame {
             mntCarro.jTextFieldPlaca.setText(carro.getPlaca());
             mntCarro.jTextFieldKilometragem.setText(carro.getKilometragem().toString());
             mntCarro.jTextFieldValorDiaria.setText(carro.getValorDia().toString());
+            SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
             if (carro.getClienteId() != null) {
                 mntCarro.jTextFieldCliente.setText(carro.getClienteId().toString());
             }
             if (carro.getDataRetirada() != null) {
-                mntCarro.jFormattedTextFieldDataRetirada.setText(carro.getDataRetirada().toLocaleString().substring(0, 10));
+                mntCarro.jFormattedTextFieldDataRetirada.setText(f.format(carro.getDataRetirada()));
             }
             if (carro.getDataDevolucao() != null) {
-                mntCarro.jFormattedTextFieldDataDevolucao.setText(carro.getDataDevolucao().toLocaleString().substring(0, 10));
+                mntCarro.jFormattedTextFieldDataDevolucao.setText(f.format(carro.getDataDevolucao()));
             }
         }
     }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jTextFieldFiltroNomeCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFiltroNomeCarroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldFiltroNomeCarroActionPerformed
 
     /**
      * @param args the command line arguments
