@@ -19,7 +19,7 @@ public class ClienteRepository {
     public List<Cliente> lista(String nome) {
         Session session = sessionFactory.openSession();
         try {
-            Query query = session.createSQLQuery("SELECT * FROM Cliente WHERE Nome LIKE :nome ORDER BY Id")
+            Query query = session.createSQLQuery("SELECT * FROM Cliente WHERE Nome LIKE :nome ORDER BY Nome")
                     .addEntity(Cliente.class)
                     .setParameter("nome", "%" + nome.toUpperCase() + "%");
             return query.list();

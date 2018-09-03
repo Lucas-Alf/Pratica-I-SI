@@ -3,7 +3,7 @@ package Repository;
 import Entity.Carro;
 import Factory.HibernateFactory;
 import Model.CarroTableModel;
-import View.brwCarro;
+import View.GridCarro;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -45,10 +45,10 @@ public class CarroRepository {
     }
 
     public void atualizaStore(String descricao) {
-        CarroTableModel model = (CarroTableModel) brwCarro.jTableCarro.getModel();
+        CarroTableModel model = (CarroTableModel) GridCarro.jTableCarro.getModel();
         model.clear();
         model.addList(new CarroRepository().lista(descricao));
-        brwCarro.jTableCarro.setModel(model);
+        GridCarro.jTableCarro.setModel(model);
     }
 
     public Carro buscaPorId(int Id) {

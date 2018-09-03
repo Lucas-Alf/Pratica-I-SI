@@ -13,12 +13,12 @@ import java.util.Date;
  *
  * @author lukin
  */
-public class mntCarro extends javax.swing.JFrame {
+public class ModalCarro extends javax.swing.JFrame {
 
     /**
      * Creates new form mntCarro
      */
-    public mntCarro() {
+    public ModalCarro() {
         initComponents();
     }
 
@@ -215,28 +215,28 @@ public class mntCarro extends javax.swing.JFrame {
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
         CarroRepository carroRepositoy = new CarroRepository();
         Carro carro = new Carro();
-        if (!mntCarro.jLabelId.getText().isEmpty()) {
-            carro.setId(Integer.parseInt(mntCarro.jLabelId.getText()));
+        if (!ModalCarro.jLabelId.getText().isEmpty()) {
+            carro.setId(Integer.parseInt(ModalCarro.jLabelId.getText()));
         } else {
             carro.setId(0);
         }
-        carro.setNome(mntCarro.jTextFieldNome.getText().toUpperCase());
-        carro.setMarca(mntCarro.jTextFieldMarca.getText().toUpperCase());
-        carro.setChassis(mntCarro.jTextFieldChassis.getText().toUpperCase());
-        carro.setPlaca(mntCarro.jTextFieldPlaca.getText().toUpperCase());
-        carro.setKilometragem(Double.parseDouble(mntCarro.jTextFieldKilometragem.getText()));
-        carro.setValorDia(Double.parseDouble(mntCarro.jTextFieldValorDiaria.getText()));
-        if (!mntCarro.jTextFieldCliente.getText().isEmpty()) {
-            carro.setClienteId(Integer.parseInt(mntCarro.jTextFieldCliente.getText()));
+        carro.setNome(ModalCarro.jTextFieldNome.getText().toUpperCase());
+        carro.setMarca(ModalCarro.jTextFieldMarca.getText().toUpperCase());
+        carro.setChassis(ModalCarro.jTextFieldChassis.getText().toUpperCase());
+        carro.setPlaca(ModalCarro.jTextFieldPlaca.getText().toUpperCase());
+        carro.setKilometragem(Double.parseDouble(ModalCarro.jTextFieldKilometragem.getText()));
+        carro.setValorDia(Double.parseDouble(ModalCarro.jTextFieldValorDiaria.getText()));
+        if (!ModalCarro.jTextFieldCliente.getText().isEmpty()) {
+            carro.setClienteId(Integer.parseInt(ModalCarro.jTextFieldCliente.getText()));
         }
-        if (!mntCarro.jFormattedTextFieldDataRetirada.getText().isEmpty()) {
-            carro.setDataRetirada(new Date(mntCarro.jFormattedTextFieldDataRetirada.getText()));
+        if (!ModalCarro.jFormattedTextFieldDataRetirada.getText().isEmpty()) {
+            carro.setDataRetirada(new Date(ModalCarro.jFormattedTextFieldDataRetirada.getText()));
             carro.setStatus(1);
         } else {
             carro.setStatus(0);
         }
-        if (!mntCarro.jFormattedTextFieldDataDevolucao.getText().isEmpty()) {
-            carro.setDataDevolucao(new Date(mntCarro.jFormattedTextFieldDataDevolucao.getText()));
+        if (!ModalCarro.jFormattedTextFieldDataDevolucao.getText().isEmpty()) {
+            carro.setDataDevolucao(new Date(ModalCarro.jFormattedTextFieldDataDevolucao.getText()));
             carro.setStatus(0);
         } else {
             carro.setStatus(1);
@@ -263,20 +263,21 @@ public class mntCarro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mntCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModalCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mntCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModalCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mntCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModalCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mntCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModalCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mntCarro().setVisible(true);
+                new ModalCarro().setVisible(true);
             }
         });
     }
