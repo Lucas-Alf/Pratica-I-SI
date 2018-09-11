@@ -6,7 +6,7 @@ import View.GridCliente;
 public class Program {
 
     public static void main(String[] args) {
-       new GridCarro().show();
+       new GridCarro().setVisible(true);
        //new GridCliente().show();
     }
 }
