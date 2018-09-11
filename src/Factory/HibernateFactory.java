@@ -8,7 +8,7 @@ package Factory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.SessionFactory;
 
 /**
@@ -25,7 +25,7 @@ public class HibernateFactory {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
-            sessionFactory = new AnnotationConfiguration().configure("./Factory/hibernate.cfg.xml").buildSessionFactory();
+            sessionFactory = new Configuration().configure("./Factory/hibernate.cfg.xml").buildSessionFactory();
         } catch (HibernateException ex) {
             // Log the exception. 
             JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
