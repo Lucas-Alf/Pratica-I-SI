@@ -31,7 +31,7 @@ public class HibernateFactory {
             // Log the exception. 
             JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
-            throw new ExceptionInInitializerError(ex);
+            //throw new ExceptionInInitializerError(ex);
         }
     }
 
