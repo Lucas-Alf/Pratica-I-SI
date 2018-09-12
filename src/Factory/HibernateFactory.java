@@ -25,13 +25,12 @@ public class HibernateFactory {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
-            //tentar trocar o path por /Factory/hibernate.cfg.xml
-            sessionFactory = new Configuration().configure("./Factory/hibernate.cfg.xml").buildSessionFactory();
+            sessionFactory = new Configuration().configure().buildSessionFactory();
         } catch (HibernateException ex) {
             // Log the exception. 
             JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
-            //throw new ExceptionInInitializerError(ex);
+            throw new ExceptionInInitializerError(ex);
         }
     }
 
