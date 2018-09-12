@@ -2,6 +2,8 @@ package Repository;
 
 import Entity.Cliente;
 import Factory.HibernateFactory;
+import Model.ClienteTableModel;
+import View.GridCliente;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -32,10 +34,10 @@ public class ClienteRepository {
     }
 
     public void atualizaStore(String descricao) {
-//        ClienteTableModel model = (ClienteTableModel) brwCliente.jTableCliente.getModel();
-//        model.clear();
-//        model.addList(new ClienteRepository().lista(descricao));
-//        brwCliente.jTableCliente.setModel(model);
+        ClienteTableModel model = (ClienteTableModel) GridCliente.jTableCliente.getModel();
+        model.clear();
+        model.addList(new ClienteRepository().lista(descricao));
+        GridCliente.jTableCliente.setModel(model);
     }
 
     public Cliente buscaPorCpf(String cpf) {

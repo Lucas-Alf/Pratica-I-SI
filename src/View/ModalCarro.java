@@ -6,7 +6,10 @@
 package View;
 
 import Entity.Carro;
+import Entity.Cliente;
 import Repository.CarroRepository;
+import Repository.ClienteRepository;
+import java.awt.event.KeyEvent;
 import java.util.Date;
 
 /**
@@ -46,7 +49,7 @@ public class ModalCarro extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextFieldCliente = new javax.swing.JTextField();
+        jTextFieldClienteCpf = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jButtonCancelar = new javax.swing.JButton();
@@ -54,6 +57,8 @@ public class ModalCarro extends javax.swing.JFrame {
         jLabelId = new javax.swing.JLabel();
         jFormattedTextFieldDataRetirada = new javax.swing.JFormattedTextField();
         jFormattedTextFieldDataDevolucao = new javax.swing.JFormattedTextField();
+        jButtonSlcCliente = new javax.swing.JButton();
+        jLabelSlcCliente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Incluir/Alterar carro");
@@ -77,6 +82,23 @@ public class ModalCarro extends javax.swing.JFrame {
 
         jLabel9.setText("Cliente: ");
 
+        jTextFieldClienteCpf.setMargin(new java.awt.Insets(2, 1, 2, 2));
+        jTextFieldClienteCpf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldClienteCpfFocusLost(evt);
+            }
+        });
+        jTextFieldClienteCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldClienteCpfActionPerformed(evt);
+            }
+        });
+        jTextFieldClienteCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldClienteCpfKeyPressed(evt);
+            }
+        });
+
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +119,18 @@ public class ModalCarro extends javax.swing.JFrame {
 
         jFormattedTextFieldDataDevolucao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
+        jButtonSlcCliente.setText("Pesquisar");
+        jButtonSlcCliente.setToolTipText("Pesquisar");
+        jButtonSlcCliente.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        jButtonSlcCliente.setPreferredSize(new java.awt.Dimension(6, 20));
+        jButtonSlcCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSlcClienteActionPerformed(evt);
+            }
+        });
+
+        jLabelSlcCliente.setText(".");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,35 +141,29 @@ public class ModalCarro extends javax.swing.JFrame {
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldNome))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldKilometragem))
+                        .addComponent(jTextFieldKilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(12, 12, 12)
-                        .addComponent(jTextFieldValorDiaria))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelId, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                        .addComponent(jLabelId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonGravar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(15, 15, 15)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(11, 11, 11)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldMarca)
                             .addComponent(jTextFieldChassis)
@@ -147,9 +175,14 @@ public class ModalCarro extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldCliente)
                             .addComponent(jFormattedTextFieldDataRetirada)
-                            .addComponent(jFormattedTextFieldDataDevolucao))))
+                            .addComponent(jFormattedTextFieldDataDevolucao)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextFieldClienteCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSlcCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelSlcCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,7 +217,9 @@ public class ModalCarro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextFieldCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldClienteCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSlcCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSlcCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -226,8 +261,8 @@ public class ModalCarro extends javax.swing.JFrame {
         carro.setPlaca(ModalCarro.jTextFieldPlaca.getText().toUpperCase());
         carro.setKilometragem(Double.parseDouble(ModalCarro.jTextFieldKilometragem.getText()));
         carro.setValorDia(Double.parseDouble(ModalCarro.jTextFieldValorDiaria.getText()));
-        if (!ModalCarro.jTextFieldCliente.getText().isEmpty()) {
-            carro.setClienteId(Integer.parseInt(ModalCarro.jTextFieldCliente.getText()));
+        if (!ModalCarro.jTextFieldClienteCpf.getText().isEmpty()) {
+            carro.setClienteId(Integer.parseInt(ModalCarro.jTextFieldClienteCpf.getText()));
         }
         if (!ModalCarro.jFormattedTextFieldDataRetirada.getText().isEmpty()) {
             carro.setDataRetirada(new Date(ModalCarro.jFormattedTextFieldDataRetirada.getText()));
@@ -245,6 +280,34 @@ public class ModalCarro extends javax.swing.JFrame {
         carroRepositoy.atualizaStore("");
         this.dispose();
     }//GEN-LAST:event_jButtonGravarActionPerformed
+
+    private void jTextFieldClienteCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldClienteCpfKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Cliente cliente = new ClienteRepository().buscaPorCpf(jTextFieldClienteCpf.getText());
+            if (cliente != null) {
+                jLabelSlcCliente.setText(cliente.getNome());
+            } else {
+                jLabelSlcCliente.setText("");
+            }
+        }
+    }//GEN-LAST:event_jTextFieldClienteCpfKeyPressed
+
+    private void jTextFieldClienteCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldClienteCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldClienteCpfActionPerformed
+
+    private void jTextFieldClienteCpfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldClienteCpfFocusLost
+        Cliente cliente = new ClienteRepository().buscaPorCpf(jTextFieldClienteCpf.getText());
+        if (cliente != null) {
+            jLabelSlcCliente.setText(cliente.getNome());
+        } else {
+            jLabelSlcCliente.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldClienteCpfFocusLost
+
+    private void jButtonSlcClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSlcClienteActionPerformed
+        new GridCliente().setVisible(true);
+    }//GEN-LAST:event_jButtonSlcClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,6 +348,7 @@ public class ModalCarro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGravar;
+    private javax.swing.JButton jButtonSlcCliente;
     public static javax.swing.JFormattedTextField jFormattedTextFieldDataDevolucao;
     public static javax.swing.JFormattedTextField jFormattedTextFieldDataRetirada;
     private javax.swing.JLabel jLabel1;
@@ -297,10 +361,11 @@ public class ModalCarro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JLabel jLabelId;
+    private javax.swing.JLabel jLabelSlcCliente;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTextField jTextFieldChassis;
-    public static javax.swing.JTextField jTextFieldCliente;
+    public static javax.swing.JTextField jTextFieldClienteCpf;
     public static javax.swing.JTextField jTextFieldKilometragem;
     public static javax.swing.JTextField jTextFieldMarca;
     public static javax.swing.JTextField jTextFieldNome;

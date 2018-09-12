@@ -201,7 +201,7 @@ public class GridCarro extends javax.swing.JFrame {
             ModalCarro.jTextFieldValorDiaria.setText(carro.getValorDia().toString());
             SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
             if (carro.getClienteId() != null) {
-                ModalCarro.jTextFieldCliente.setText(carro.getClienteId().toString());
+                ModalCarro.jTextFieldClienteCpf.setText(carro.getClienteId().toString());
             }
             if (carro.getDataRetirada() != null) {
                 ModalCarro.jFormattedTextFieldDataRetirada.setText(f.format(carro.getDataRetirada()));

@@ -6,7 +6,9 @@
 package View;
 
 import Model.ClienteTableModel;
+import Repository.CarroRepository;
 import Repository.ClienteRepository;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -31,20 +33,20 @@ public class GridCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCliente = new javax.swing.JTable();
         jButtonIncluir = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldFiltroNome = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de clientes");
 
         ClienteTableModel model = new ClienteTableModel();
         model.addList(new ClienteRepository().lista(GridCliente.jTextFieldFiltroNome.getText()));
-        jTable1.setModel(model);
-        jScrollPane1.setViewportView(jTable1);
+        jTableCliente.setModel(model);
+        jScrollPane1.setViewportView(jTableCliente);
 
         jButtonIncluir.setText("Incluir");
         jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -58,6 +60,12 @@ public class GridCliente extends javax.swing.JFrame {
         jButtonExcluir.setText("Excluir");
 
         jLabel1.setText("Filtrar por nome:");
+
+        jTextFieldFiltroNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldFiltroNomeKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +108,12 @@ public class GridCliente extends javax.swing.JFrame {
         new ModalCliente().show();
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
+    private void jTextFieldFiltroNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFiltroNomeKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            new ClienteRepository().atualizaStore(jTextFieldFiltroNome.getText());
+        }
+    }//GEN-LAST:event_jTextFieldFiltroNomeKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -141,7 +155,7 @@ public class GridCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTableCliente;
     public static javax.swing.JTextField jTextFieldFiltroNome;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,14 +34,12 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "Nome")
     private String nome;
-    @Id
-    @Basic(optional = false)
     @Column(name = "Rg")
     private String rg;
+    @Id
     @Basic(optional = false)
     @Column(name = "Cpf")
     private String cpf;
-    @Basic(optional = false)
     @Column(name = "CNH")
     private String cnh;
 
