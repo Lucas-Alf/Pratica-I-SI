@@ -25,6 +25,7 @@ public class HibernateFactory {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
+            //tentar trocar o path por /Factory/hibernate.cfg.xml
             sessionFactory = new Configuration().configure("./Factory/hibernate.cfg.xml").buildSessionFactory();
         } catch (HibernateException ex) {
             // Log the exception. 
