@@ -1,8 +1,12 @@
 package View;
 
 import Entity.Carro;
+import Entity.Cliente;
 import Model.CarroTableModel;
 import Repository.CarroRepository;
+import Repository.ClienteRepository;
+import static View.ModalCarro.jLabelSlcCliente;
+import static View.ModalCarro.jTextFieldClienteCpf;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
@@ -42,6 +46,8 @@ public class GridCarro extends javax.swing.JFrame {
         jTableCarro = new javax.swing.JTable();
         jTextFieldFiltroNomeCarro = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jButtonClientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Disponibilidade da frota");
@@ -121,6 +127,15 @@ public class GridCarro extends javax.swing.JFrame {
 
         jLabel2.setText("Filtrar por nome:");
 
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jButtonClientes.setText("Clientes");
+        jButtonClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClientesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,6 +147,10 @@ public class GridCarro extends javax.swing.JFrame {
                 .addComponent(jButtonAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonClientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -143,12 +162,15 @@ public class GridCarro extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonIncluir)
-                    .addComponent(jButtonAlterar)
-                    .addComponent(jButtonExcluir)
-                    .addComponent(jTextFieldFiltroNomeCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonIncluir)
+                        .addComponent(jButtonAlterar)
+                        .addComponent(jButtonExcluir)
+                        .addComponent(jTextFieldFiltroNomeCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)
+                        .addComponent(jButtonClientes))
+                    .addComponent(jSeparator1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
         );
@@ -209,12 +231,22 @@ public class GridCarro extends javax.swing.JFrame {
             if (carro.getDataDevolucao() != null) {
                 ModalCarro.jFormattedTextFieldDataDevolucao.setText(f.format(carro.getDataDevolucao()));
             }
+            Cliente cliente = new ClienteRepository().buscaPorCpf(jTextFieldClienteCpf.getText());
+            if (cliente != null) {
+                jLabelSlcCliente.setText(cliente.getNome());
+            } else {
+                jLabelSlcCliente.setText("");
+            }
         }
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     private void jTextFieldFiltroNomeCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFiltroNomeCarroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFiltroNomeCarroActionPerformed
+
+    private void jButtonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientesActionPerformed
+        new GridCliente().setVisible(true);
+    }//GEN-LAST:event_jButtonClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -250,17 +282,19 @@ public class GridCarro extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GridCarro().setVisible(true);
-
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlterar;
+    private javax.swing.JButton jButtonClientes;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     public static javax.swing.JTable jTableCarro;
     private javax.swing.JTextField jTextFieldFiltroNomeCarro;
     // End of variables declaration//GEN-END:variables

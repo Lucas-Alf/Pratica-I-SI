@@ -33,10 +33,10 @@ public class ClienteRepository {
         }
     }
 
-    public void atualizaStore(String descricao) {
+    public void atualizaStore(String nome) {
         ClienteTableModel model = (ClienteTableModel) GridCliente.jTableCliente.getModel();
         model.clear();
-        model.addList(new ClienteRepository().lista(descricao));
+        model.addList(new ClienteRepository().lista(nome));
         GridCliente.jTableCliente.setModel(model);
     }
 
@@ -55,11 +55,12 @@ public class ClienteRepository {
         }
     }
 
-    public void gravar(Cliente Cliente) {
+    public void gravar(Cliente cliente) {
+        cliente.setNome(cliente.getNome().toUpperCase());
         Session session = sessionFactory.openSession();
         try {
             session.getTransaction().begin();
-            session.saveOrUpdate(Cliente);
+            session.saveOrUpdate(cliente);
             session.getTransaction().commit();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

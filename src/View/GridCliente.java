@@ -5,10 +5,20 @@
  */
 package View;
 
+import Entity.Carro;
+import Entity.Cliente;
 import Model.ClienteTableModel;
 import Repository.CarroRepository;
 import Repository.ClienteRepository;
+import static View.GridCarro.jTableCarro;
+import static View.ModalCarro.jLabelSlcCliente;
+import static View.ModalCarro.jTextFieldClienteCpf;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,6 +31,10 @@ public class GridCliente extends javax.swing.JFrame {
      */
     public GridCliente() {
         initComponents();
+        Frame[] framis = ModalCarro.getFrames();
+        if (Arrays.stream(framis).filter(x -> x.getClass() == ModalCarro.class && x.isShowing() == true).count() > 0) {
+            jButtonSelecionarCliente.setEnabled(true);
+        }
     }
 
     /**
@@ -39,6 +53,8 @@ public class GridCliente extends javax.swing.JFrame {
         jButtonExcluir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldFiltroNome = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jButtonSelecionarCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de clientes");
@@ -56,8 +72,18 @@ public class GridCliente extends javax.swing.JFrame {
         });
 
         jButtonAlterar.setText("Alterar");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Filtrar por nome:");
 
@@ -67,11 +93,21 @@ public class GridCliente extends javax.swing.JFrame {
             }
         });
 
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jButtonSelecionarCliente.setText("Selecionar");
+        jButtonSelecionarCliente.setEnabled(false);
+        jButtonSelecionarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelecionarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonIncluir)
@@ -79,6 +115,10 @@ public class GridCliente extends javax.swing.JFrame {
                 .addComponent(jButtonAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonSelecionarCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -95,7 +135,9 @@ public class GridCliente extends javax.swing.JFrame {
                         .addComponent(jButtonAlterar)
                         .addComponent(jButtonExcluir)
                         .addComponent(jLabel1)
-                        .addComponent(jTextFieldFiltroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldFiltroNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonSelecionarCliente))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
         );
@@ -113,6 +155,50 @@ public class GridCliente extends javax.swing.JFrame {
             new ClienteRepository().atualizaStore(jTextFieldFiltroNome.getText());
         }
     }//GEN-LAST:event_jTextFieldFiltroNomeKeyPressed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        int index = jTableCliente.getSelectedRow();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(new JFrame(), "Nenhuma linha selecionada!", "Alerta", JOptionPane.WARNING_MESSAGE);
+        } else {
+            ClienteRepository clienteRepositoy = new ClienteRepository();
+            String cpf = jTableCliente.getModel().getValueAt(index, 2).toString();
+            if (JOptionPane.showConfirmDialog(new JFrame(), "Tem certeza que deseja excluir o cliente CPF: " + cpf + "?", "Alerta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+                try {
+                    clienteRepositoy.excluir(cpf);
+                } finally {
+                    clienteRepositoy.atualizaStore("");
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        int linha = jTableCliente.getSelectedRow();
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(new JFrame(), "Nenhuma linha selecionada!", "Alerta", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String cpf = jTableCliente.getModel().getValueAt(linha, 2).toString();
+            Cliente cliente = new ClienteRepository().buscaPorCpf(cpf);
+            new ModalCliente().show();
+            ModalCliente.jTextFieldNome.setText(cliente.getNome());
+            ModalCliente.jTextFieldCpf.setText(cliente.getCpf());
+            ModalCliente.jTextFieldRg.setText(cliente.getRg());
+            ModalCliente.jTextFieldCnh.setText(cliente.getCnh());
+        }
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButtonSelecionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarClienteActionPerformed
+        if (jTableCliente.getSelectedRow() != -1) {
+            String cpf = jTableCliente.getModel().getValueAt(jTableCliente.getSelectedRow(), 2).toString();
+            Cliente cliente = new ClienteRepository().buscaPorCpf(cpf);
+            ModalCarro.jTextFieldClienteCpf.setText(cpf);
+            jLabelSlcCliente.setText(cliente.getNome());
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "Nenhuma linha selecionada!", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonSelecionarClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,8 +239,10 @@ public class GridCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
+    private javax.swing.JButton jButtonSelecionarCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     public static javax.swing.JTable jTableCliente;
     public static javax.swing.JTextField jTextFieldFiltroNome;
     // End of variables declaration//GEN-END:variables

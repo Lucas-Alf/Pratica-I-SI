@@ -10,7 +10,7 @@ public class CarroTableModel extends AbstractTableModel {
 
     private List<Carro> carros;
     private String[] colunas = new String[]{
-        "Id", "Nome", "Marca", "Chassis", "Placa", "Kilometragem", "Status", "Valor Dia", "Data Retirada", "Data Devolução", "Cliente Id"};
+        "Id", "Nome", "Marca", "Chassis", "Placa", "Kilometragem", "Status", "Valor Dia", "Data Retirada", "Data Devolução", "Cliente CPF"};
 
     public CarroTableModel(List<Carro> carros) {
         this.carros = carros;
@@ -90,7 +90,7 @@ public class CarroTableModel extends AbstractTableModel {
             case 9:
                 carro.setDataDevolucao((Date) aValue);
             case 10:
-                carro.setClienteId((Integer) aValue);
+                carro.setClienteId(aValue.toString());
             default:
                 System.err.println("Índice da coluna inválido");
         }

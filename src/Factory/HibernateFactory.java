@@ -5,6 +5,7 @@
  */
 package Factory;
 
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
@@ -25,10 +26,13 @@ public class HibernateFactory {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+            File configFile = new File("src/Factory/hibernate.cfg.xml");
+            Configuration config = new Configuration();
+            config.configure(configFile);
+            sessionFactory = config.buildSessionFactory();
         } catch (HibernateException ex) {
             // Log the exception. 
-            JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "Não foi possivel se conectar ao banco de dados.\n" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
             throw new ExceptionInInitializerError(ex);
         }

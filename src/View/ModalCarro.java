@@ -11,6 +11,8 @@ import Repository.CarroRepository;
 import Repository.ClienteRepository;
 import java.awt.event.KeyEvent;
 import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -262,7 +264,7 @@ public class ModalCarro extends javax.swing.JFrame {
         carro.setKilometragem(Double.parseDouble(ModalCarro.jTextFieldKilometragem.getText()));
         carro.setValorDia(Double.parseDouble(ModalCarro.jTextFieldValorDiaria.getText()));
         if (!ModalCarro.jTextFieldClienteCpf.getText().isEmpty()) {
-            carro.setClienteId(Integer.parseInt(ModalCarro.jTextFieldClienteCpf.getText()));
+            carro.setClienteId(ModalCarro.jTextFieldClienteCpf.getText());
         }
         if (!ModalCarro.jFormattedTextFieldDataRetirada.getText().isEmpty()) {
             carro.setDataRetirada(new Date(ModalCarro.jFormattedTextFieldDataRetirada.getText()));
@@ -273,8 +275,10 @@ public class ModalCarro extends javax.swing.JFrame {
         if (!ModalCarro.jFormattedTextFieldDataDevolucao.getText().isEmpty()) {
             carro.setDataDevolucao(new Date(ModalCarro.jFormattedTextFieldDataDevolucao.getText()));
             carro.setStatus(0);
-        } else {
-            carro.setStatus(1);
+        }
+        if ((!ModalCarro.jFormattedTextFieldDataRetirada.getText().isEmpty() || !ModalCarro.jFormattedTextFieldDataDevolucao.getText().isEmpty()) && ModalCarro.jTextFieldClienteCpf.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(new JFrame(), "CPF é obrigatório.", "Alerta", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         carroRepositoy.gravar(carro);
         carroRepositoy.atualizaStore("");
@@ -361,7 +365,7 @@ public class ModalCarro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JLabel jLabelId;
-    private javax.swing.JLabel jLabelSlcCliente;
+    public static javax.swing.JLabel jLabelSlcCliente;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTextField jTextFieldChassis;

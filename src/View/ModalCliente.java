@@ -183,9 +183,9 @@ public class ModalCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextFieldCnh;
-    private javax.swing.JTextField jTextFieldCpf;
-    private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldRg;
+    public static javax.swing.JTextField jTextFieldCnh;
+    public static javax.swing.JTextField jTextFieldCpf;
+    public static javax.swing.JTextField jTextFieldNome;
+    public static javax.swing.JTextField jTextFieldRg;
     // End of variables declaration//GEN-END:variables
 }

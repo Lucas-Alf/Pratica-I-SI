@@ -72,7 +72,7 @@ public class Carro implements Serializable {
     private Date dataDevolucao;
     @Basic(optional = false)
     @Column(name = "cliente_id")
-    private Integer clienteId;
+    private String clienteId;
 
     public Carro() {
     }
@@ -81,7 +81,7 @@ public class Carro implements Serializable {
         this.id = id;
     }
 
-    public Carro(Integer id, String nome, String marca, String placa, Integer status, Integer clienteId) {
+    public Carro(Integer id, String nome, String marca, String placa, Integer status, String clienteId) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -170,11 +170,11 @@ public class Carro implements Serializable {
         this.dataDevolucao = dataDevolucao;
     }
 
-    public Integer getClienteId() {
+    public String getClienteId() {
         return clienteId;
     }
 
-    public void setClienteId(Integer clienteId) {
+    public void setClienteId(String clienteId) {
         this.clienteId = clienteId;
     }
 
