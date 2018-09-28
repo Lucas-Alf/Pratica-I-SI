@@ -10,7 +10,11 @@ import Entity.Cliente;
 import Repository.CarroRepository;
 import Repository.ClienteRepository;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -118,6 +122,11 @@ public class ModalCarro extends javax.swing.JFrame {
         jLabelId.setForeground(new java.awt.Color(240, 240, 240));
 
         jFormattedTextFieldDataRetirada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        jFormattedTextFieldDataRetirada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldDataRetiradaActionPerformed(evt);
+            }
+        });
 
         jFormattedTextFieldDataDevolucao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
@@ -250,6 +259,8 @@ public class ModalCarro extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false);
         CarroRepository carroRepositoy = new CarroRepository();
         Carro carro = new Carro();
         if (!ModalCarro.jLabelId.getText().isEmpty()) {
@@ -267,14 +278,25 @@ public class ModalCarro extends javax.swing.JFrame {
             carro.setClienteId(ModalCarro.jTextFieldClienteCpf.getText());
         }
         if (!ModalCarro.jFormattedTextFieldDataRetirada.getText().isEmpty()) {
-            carro.setDataRetirada(new Date(ModalCarro.jFormattedTextFieldDataRetirada.getText()));
-            carro.setStatus(1);
+            try {
+                Date dataRetirada = sdf.parse(ModalCarro.jFormattedTextFieldDataRetirada.getText());
+                carro.setDataRetirada(dataRetirada);
+                carro.setStatus(1);
+            } catch (ParseException ex) {
+                Logger.getLogger(ModalCarro.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             carro.setStatus(0);
         }
         if (!ModalCarro.jFormattedTextFieldDataDevolucao.getText().isEmpty()) {
-            carro.setDataDevolucao(new Date(ModalCarro.jFormattedTextFieldDataDevolucao.getText()));
-            carro.setStatus(0);
+            Date dataDevolucao;
+            try {
+                dataDevolucao = sdf.parse(ModalCarro.jFormattedTextFieldDataDevolucao.getText());
+                carro.setDataDevolucao(dataDevolucao);
+                carro.setStatus(0);
+            } catch (ParseException ex) {
+                Logger.getLogger(ModalCarro.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if ((!ModalCarro.jFormattedTextFieldDataRetirada.getText().isEmpty() || !ModalCarro.jFormattedTextFieldDataDevolucao.getText().isEmpty()) && ModalCarro.jTextFieldClienteCpf.getText().isEmpty()) {
             JOptionPane.showMessageDialog(new JFrame(), "CPF é obrigatório.", "Alerta", JOptionPane.WARNING_MESSAGE);
@@ -312,6 +334,10 @@ public class ModalCarro extends javax.swing.JFrame {
     private void jButtonSlcClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSlcClienteActionPerformed
         new GridCliente().setVisible(true);
     }//GEN-LAST:event_jButtonSlcClienteActionPerformed
+
+    private void jFormattedTextFieldDataRetiradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDataRetiradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldDataRetiradaActionPerformed
 
     /**
      * @param args the command line arguments

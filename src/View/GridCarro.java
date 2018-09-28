@@ -75,7 +75,7 @@ public class GridCarro extends javax.swing.JFrame {
         });
 
         TableCellRenderer RendererData = new DefaultTableCellRenderer() {
-            SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
             public Component getTableCellRendererComponent(JTable table,
                 Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {
@@ -221,7 +221,7 @@ public class GridCarro extends javax.swing.JFrame {
             ModalCarro.jTextFieldPlaca.setText(carro.getPlaca());
             ModalCarro.jTextFieldKilometragem.setText(carro.getKilometragem().toString());
             ModalCarro.jTextFieldValorDiaria.setText(carro.getValorDia().toString());
-            SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy");
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
             if (carro.getClienteId() != null) {
                 ModalCarro.jTextFieldClienteCpf.setText(carro.getClienteId().toString());
             }
