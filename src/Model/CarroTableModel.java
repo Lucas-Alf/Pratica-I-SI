@@ -10,7 +10,7 @@ public class CarroTableModel extends AbstractTableModel {
 
     private List<Carro> carros;
     private String[] colunas = new String[]{
-        "Id", "Nome", "Marca", "Chassis", "Placa", "Kilometragem", "Status", "Valor Dia", "Data Retirada", "Data Devolução", "Cliente CPF"};
+        "Id", "Nome", "Marca", "Chassis", "Placa", "Kilometragem", "Status", "Valor Dia", "Data Retirada", "Data Devolução", "CPF Cliente"};
 
     public CarroTableModel(List<Carro> carros) {
         this.carros = carros;

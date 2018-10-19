@@ -203,7 +203,7 @@ public class GridCarro extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
-        new ModalCarro().show();
+        new ModalCarro().setVisible(true);
     }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -219,8 +219,8 @@ public class GridCarro extends javax.swing.JFrame {
             ModalCarro.jTextFieldMarca.setText(carro.getMarca());
             ModalCarro.jTextFieldChassis.setText(carro.getChassis());
             ModalCarro.jTextFieldPlaca.setText(carro.getPlaca());
-            ModalCarro.jTextFieldKilometragem.setText(carro.getKilometragem().toString());
-            ModalCarro.jTextFieldValorDiaria.setText(carro.getValorDia().toString());
+            ModalCarro.jTextFieldKilometragem.setText(carro.getKilometragem().toString().replace(".", ","));
+            ModalCarro.jTextFieldValorDiaria.setText(carro.getValorDia().toString().replace(".", ","));
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
             if (carro.getClienteId() != null) {
                 ModalCarro.jTextFieldClienteCpf.setText(carro.getClienteId().toString());

@@ -49,9 +49,7 @@ public class ModalCarro extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFieldPlaca = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextFieldKilometragem = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextFieldValorDiaria = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -65,6 +63,8 @@ public class ModalCarro extends javax.swing.JFrame {
         jFormattedTextFieldDataDevolucao = new javax.swing.JFormattedTextField();
         jButtonSlcCliente = new javax.swing.JButton();
         jLabelSlcCliente = new javax.swing.JLabel();
+        jTextFieldValorDiaria = new javax.swing.JFormattedTextField();
+        jTextFieldKilometragem = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Incluir/Alterar carro");
@@ -142,6 +142,10 @@ public class ModalCarro extends javax.swing.JFrame {
 
         jLabelSlcCliente.setText(".");
 
+        jTextFieldValorDiaria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+
+        jTextFieldKilometragem.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.000"))));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,14 +159,6 @@ public class ModalCarro extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldNome))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldKilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,7 +189,15 @@ public class ModalCarro extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonSlcCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelSlcCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jLabelSlcCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldKilometragem)
+                            .addComponent(jTextFieldValorDiaria))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -272,8 +276,8 @@ public class ModalCarro extends javax.swing.JFrame {
         carro.setMarca(ModalCarro.jTextFieldMarca.getText().toUpperCase());
         carro.setChassis(ModalCarro.jTextFieldChassis.getText().toUpperCase());
         carro.setPlaca(ModalCarro.jTextFieldPlaca.getText().toUpperCase());
-        carro.setKilometragem(Double.parseDouble(ModalCarro.jTextFieldKilometragem.getText()));
-        carro.setValorDia(Double.parseDouble(ModalCarro.jTextFieldValorDiaria.getText()));
+        carro.setKilometragem(Double.parseDouble(ModalCarro.jTextFieldKilometragem.getText().replace(",", "")));
+        carro.setValorDia(Double.parseDouble(ModalCarro.jTextFieldValorDiaria.getText().replace(",", "")));
         if (!ModalCarro.jTextFieldClienteCpf.getText().isEmpty()) {
             carro.setClienteId(ModalCarro.jTextFieldClienteCpf.getText());
         }
@@ -396,10 +400,10 @@ public class ModalCarro extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTextField jTextFieldChassis;
     public static javax.swing.JTextField jTextFieldClienteCpf;
-    public static javax.swing.JTextField jTextFieldKilometragem;
+    public static javax.swing.JFormattedTextField jTextFieldKilometragem;
     public static javax.swing.JTextField jTextFieldMarca;
     public static javax.swing.JTextField jTextFieldNome;
     public static javax.swing.JTextField jTextFieldPlaca;
-    public static javax.swing.JTextField jTextFieldValorDiaria;
+    public static javax.swing.JFormattedTextField jTextFieldValorDiaria;
     // End of variables declaration//GEN-END:variables
 }
