@@ -142,9 +142,14 @@ public class ModalCarro extends javax.swing.JFrame {
 
         jLabelSlcCliente.setText(".");
 
-        jTextFieldValorDiaria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jTextFieldValorDiaria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jTextFieldValorDiaria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldValorDiariaActionPerformed(evt);
+            }
+        });
 
-        jTextFieldKilometragem.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.000"))));
+        jTextFieldKilometragem.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,8 +281,8 @@ public class ModalCarro extends javax.swing.JFrame {
         carro.setMarca(ModalCarro.jTextFieldMarca.getText().toUpperCase());
         carro.setChassis(ModalCarro.jTextFieldChassis.getText().toUpperCase());
         carro.setPlaca(ModalCarro.jTextFieldPlaca.getText().toUpperCase());
-        carro.setKilometragem(Double.parseDouble(ModalCarro.jTextFieldKilometragem.getText().replace(",", "")));
-        carro.setValorDia(Double.parseDouble(ModalCarro.jTextFieldValorDiaria.getText().replace(",", "")));
+        carro.setKilometragem(Double.parseDouble(ModalCarro.jTextFieldKilometragem.getText().replace(",", ".")));
+        carro.setValorDia(Double.parseDouble(ModalCarro.jTextFieldValorDiaria.getText().replace(",", ".")));
         if (!ModalCarro.jTextFieldClienteCpf.getText().isEmpty()) {
             carro.setClienteId(ModalCarro.jTextFieldClienteCpf.getText());
         }
@@ -342,6 +347,10 @@ public class ModalCarro extends javax.swing.JFrame {
     private void jFormattedTextFieldDataRetiradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDataRetiradaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextFieldDataRetiradaActionPerformed
+
+    private void jTextFieldValorDiariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorDiariaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldValorDiariaActionPerformed
 
     /**
      * @param args the command line arguments
