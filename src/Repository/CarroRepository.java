@@ -85,19 +85,24 @@ public class CarroRepository {
     }
 
     public void excluir(int id) {
-        Session session = sessionFactory.openSession();
-        try {
-            session.getTransaction().begin();
-            Query query = session.createSQLQuery("DELETE FROM carro WHERE Id = :id")
-                    .setParameter("id", id);
-            query.executeUpdate();
-            session.getTransaction().commit();
-        } catch (Exception ex) {
-            session.getTransaction().rollback();
-            JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-            throw new Error(ex.getMessage());
-        } finally {
-            session.close();
+        Carro carro = buscaPorId(id);
+        if (carro.getStatus() == 1) {
+            JOptionPane.showMessageDialog(new JFrame(),"O Carro não pode ser excluido equanto estiver locado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Session session = sessionFactory.openSession();
+            try {
+                session.getTransaction().begin();
+                Query query = session.createSQLQuery("DELETE FROM carro WHERE Id = :id")
+                        .setParameter("id", id);
+                query.executeUpdate();
+                session.getTransaction().commit();
+            } catch (Exception ex) {
+                session.getTransaction().rollback();
+                JOptionPane.showMessageDialog(new JFrame(), ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                throw new Error(ex.getMessage());
+            } finally {
+                session.close();
+            }
         }
     }
 }
